@@ -59,6 +59,14 @@ ADD(column column_varray);
 
 Nested-Tables- > Nested tables are also collection datatypes ,as the name implies it stores a table inside a single cell of the relational table.
 
+Step 1: Create object type
+
+CREATE OR REPLACE TYPE address_type as object
+
+step2: Create nested_table using type defination suffix (table_type)
+
+Create tabke
+
 
 
 
