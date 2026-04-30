@@ -61,11 +61,24 @@ Nested-Tables- > Nested tables are also collection datatypes ,as the name implie
 
 Step 1: Create object type
 
-CREATE OR REPLACE TYPE address_type as object
+CREATE OR REPLACE TYPE address_type as object(
+CITY VARCHAR2(32),
+DISTRICT VARCHAR2(32),
+COUNTRY VARCHAR2(32));
+/
+show errors
+
 
 step2: Create nested_table using type defination suffix (table_type)
 
-Create tabke
+Create TABLE address_table_type AS table OF address_type;
+
+Step 3: Using in relational table
+CREATE table sites(
+ID number(5),
+address address_table_type)
+NESTED TABLE address store as nested_address_table_type;
+
 
 
 
