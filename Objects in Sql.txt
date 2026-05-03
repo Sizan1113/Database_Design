@@ -15,6 +15,8 @@ show errors
 
 
 
+
+
 Object-Table-> Object tables ore the table created from object types to store value as object type doesnot hold value itself as it is only the structure of the object table but the object table hold the values.
 
 CREATE object_table_name of object type;
@@ -32,6 +34,19 @@ Alter table table_name
 Add (address REF  object_type SCOPE IS object_table_name);
 
 
+Inserting into relational table with objectyp datatype.
+
+Insert into details
+Values(101,'Sizan',address_type('Nepal','KTM','Baneswor'));
+
+Inserting into a object typecolumn refering to object table.
+
+INSERT into sites
+SELECT 123, REF(a)
+FROM address a
+where id = 11;
+
+
 Varray-> Varray behaves like an array of same object type column like address_varray of size (3) can hold 3 different addresses.Its limitation is its of fixed size.
 
 
@@ -39,6 +54,8 @@ There are two types of varrays:
 -1D varray.
 
 Create Type  address_varray as VARRAY(2) of address_type;
+
+
 
 -Multidimentional varray:-> Meaning varray inside a varray.
 step1:Create object _type
@@ -55,6 +72,16 @@ attribute  column_varray);
 
 Alter table table_name
 ADD(column column_varray);
+
+
+Inserting into multidimentional varray of size 3
+
+INSERT into tablename
+Values('attribute-value',column_varray(
+		column_object_type('objectype_attribute_value','bjectype_attribute_value'),
+		column_object_type('objectype_attribute_value','bjectype_attribute_value'),
+		column_object_type('objectype_attribute_value','bjectype_attribute_value')
+	);
 
 
 Nested-Tables- > Nested tables are also collection datatypes ,as the name implies it stores a table inside a single cell of the relational table.
@@ -78,6 +105,18 @@ CREATE table sites(
 ID number(5),
 address address_table_type)
 NESTED TABLE address store as nested_address_table_type;
+
+
+Inserting into nested tables
+ Insert into table_name
+values('attribute value',nested_table_type(
+column_object_type('objectype_attribute_value','bjectype_attribute_value'),
+column_object_type('objectype_attribute_value','bjectype_attribute_value')
+);
+
+
+
+
 
 
 
