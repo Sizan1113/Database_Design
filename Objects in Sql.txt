@@ -47,6 +47,26 @@ FROM address a
 where id = 11;
 
 
+Querying an object table using DOT notation.
+SELECT s.address.city,s.address.country from sites s;
+
+
+Querying tables with ref columns using (DEREF)
+
+SELECT ID,DEREF(address) from sites;
+
+NOTE: WE can query the  REF object type columns with traditional method but it will not return useful data it will return OID;
+
+SELECT REF(a) , street, city, country
+
+FROM addresses a
+
+WHERE street = '67 KENSINGTON AVENUE
+
+
+
+
+
 Varray-> Varray behaves like an array of same object type column like address_varray of size (3) can hold 3 different addresses.Its limitation is its of fixed size.
 
 
@@ -84,6 +104,34 @@ Values('attribute-value',column_varray(
 	);
 
 
+Querying a varray.
+NOTE:  we can query varray using standard methos but it returns data the way it was inserted when is not readable for non technical users.
+
+To query a varray we need to create a pseudo table for the varray column.
+
+Syntax:
+
+SELECT relational_alias.column_name, pseudo_table_alias.attribute,
+
+pseudo_table_alias.attribute
+
+FROM relational_table relational_alias,
+
+TABLE(relational_alias.attribute) pseudo_table_alias
+
+WHERE condition;
+
+
+example:
+
+SELCT s.id,a.city,a.street
+from sites s, TABLE(s.address) a
+Where s.id  = 1;
+
+
+
+
+
 Nested-Tables- > Nested tables are also collection datatypes ,as the name implies it stores a table inside a single cell of the relational table.
 
 Step 1: Create object type
@@ -115,6 +163,40 @@ column_object_type('objectype_attribute_value','bjectype_attribute_value')
 );
 
 
+Querying a Nested Table:
+Its similar to querying a varray .
+
+SYNTAX:
+
+SELECT relational_alias.column_name, pseudo_table_alias.attribute,
+
+FROM relational_table relational_alias,
+
+TABLE(relational_alias.attribute) pseudo_table_alias
+
+WHERE condition;
+
+
+example:
+
+SELCT s.id,a.city,a.street
+from sites s, TABLE(s.address) a
+Where s.id  = 1;
+
+Querying Neste table only:
+This method is used to unnest a nested column
+
+
+SELECT VALUE(alias)
+FROM THE(
+			SELECT column_name
+			FROM relational_table
+			WHERE column_name = value) alias;
+
+SELECT VALUE(s)
+FROM THE(
+			SELECT address
+			from sites	) s;
 
 
 
