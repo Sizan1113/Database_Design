@@ -196,7 +196,126 @@ FROM THE(
 SELECT VALUE(s)
 FROM THE(
 			SELECT address
-			from sites	) s;
+			from sites) s;
+
+
+UNION:
+Acts as a(aUb) but returns distinct values between the datasets.
+Conditions to use UNION:
+--same number of columns in both datasets.
+--same datatype.
+--same size of datatype.
+
+SYNTAX:
+SELECT id, name from students;
+UNION
+SELECT id, name from employess;
+
+
+UNION ALL:
+Acts as a join but returns values with null values.
+
+Syntax:
+SELECT id, name from students;
+UNION
+SELECT id, name from employess;
+
+INTERSECT.
+--returns matching values from both datasets.
+
+Syntax:
+SELECT id, name from students;
+INTERSECT
+SELECT id, name from employess;
+
+
+MINUS.
+--returns values in left table only.
+--depends on which table is in left.
+
+
+Syntax:
+SELECT id, name from students;
+INTERSECT
+SELECT id, name from employess;
+
+
+
+
+Aggregate Functions
+
+MAX(column_name);
+--Selects cell with the maximum value of a column;
+
+Syntax:
+SELECT MAX(salary) as highest_salary from employees;
+
+
+MIN(column_name);
+--Selects cell with the minimum value of a column;
+
+Syntax:
+SELECT MIN(salary) as lowest salary from employees;
+
+SUM(column_name);
+--Returns total sum of the values of a column.
+
+Syntax:
+SELECT SUM(salary) as Total_salary from employees; 
+
+AVG(column_name);
+--Returns average of the values in a column.
+
+Syntax:
+SELECT AVG(salary) as average_salary from employees;
+
+
+
+
+COUNT(*);
+-- Returns number of rows in a dataset in null values inclusive.
+
+Syntax:
+
+SELECT
+	COUNT(*)
+FROM employees;
+
+COUNT(column_name);
+--Returns number of rows in a dataset without null values.
+
+Syntax:
+SELECT 
+	COUNT(ID)
+FROM employees;
+
+
+GROUP BY :
+Makes clusters of similar data points in a categorial data before filtering or where clause.
+
+Syntax:
+SELECT MAX(salary),dept
+FROM employess
+GROUP BY dept;
+
+Having clause:
+--Filters the data after aggregation and where clause.
+
+Syntax:
+SELECT MAX(salary),dept
+FROM employees
+GROUP by dept
+Having  MAX(salary) > 50000;
+
+
+
+
+
+
+
+
+
+
 
 
 
